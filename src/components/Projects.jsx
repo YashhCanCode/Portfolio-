@@ -1,28 +1,31 @@
-import React from 'react';
-import {
-  motion,
-  useMotionValue,
-  useMotionTemplate,
-  useSpring,
-  useTransform,
-} from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
-const projects = [
+const featured = [
   {
     title: 'CodeRAG',
     tag: 'Retrieval-Augmented Generation',
     description:
-      'A Retrieval-Augmented Generation system that indexes codebases and answers questions grounded in real source code, combining vector search with LLM reasoning for accurate, context-aware responses.',
+      'A Retrieval-Augmented Generation system that indexes codebases and answers questions grounded in real source code — combining vector search with LLM reasoning for accurate, context-aware answers.',
     tech: ['Python', 'RAG', 'Vector DB', 'LLMs', 'Embeddings'],
     link: 'https://github.com/YashhCanCode/Project-CodeRAG',
     status: null,
   },
   {
-    title: 'Local SLM App',
-    tag: 'On-device AI · Ollama',
+    title: 'AI Agent',
+    tag: 'Autonomous Agent',
     description:
-      'A fully local Small Language Model application built on Ollama, running inference entirely on-device for private, offline AI chat with no external API calls.',
-    tech: ['Ollama', 'SLMs', 'Python', 'Local Inference'],
+      'An autonomous agent that plans and executes multi-step tasks using LLM reasoning and tool use, chaining actions to reach a goal.',
+    tech: ['AI Agents', 'LLMs', 'Tool Use'],
+    link: 'https://github.com/YashhCanCode/Ai-Agent',
+    status: null,
+  },
+  {
+    title: 'Local SLM App',
+    tag: 'On-device AI',
+    description:
+      'A fully local Small Language Model app on Ollama — private, offline inference with no external API calls.',
+    tech: ['Ollama', 'SLMs', 'Python'],
     link: 'https://github.com/YashhCanCode/Local-SLM-App-with-Ollama',
     status: null,
   },
@@ -30,7 +33,7 @@ const projects = [
     title: 'Job Co-Pilot',
     tag: 'AI Career Assistant',
     description:
-      'An AI-powered assistant that streamlines the job search — tailoring applications, surfacing relevant roles, and guiding candidates through the process. Currently in active development.',
+      'An AI assistant that streamlines the job search — tailoring applications and surfacing relevant roles. In active development.',
     tech: ['AI Agents', 'LLMs', 'Full-Stack'],
     link: null,
     status: 'In Progress',
@@ -39,20 +42,54 @@ const projects = [
     title: 'Evolve',
     tag: 'Personal Project',
     description:
-      'A personal project exploring intelligent, adaptive experiences — building thoughtful AI tooling from the ground up.',
+      'A personal project exploring intelligent, adaptive experiences — thoughtful AI tooling built from the ground up.',
     tech: ['React', 'Node.js', 'AI'],
     link: 'https://github.com/YashhCanCode/Project-Evolve',
     status: null,
   },
 ];
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut', delay: i * 0.12 },
-  }),
+const dataProjects = [
+  {
+    title: 'MNIST Classifier',
+    tag: 'Deep Learning',
+    description: 'A neural network that recognizes handwritten digits from the MNIST dataset.',
+    tech: ['Python', 'CNN', 'NumPy'],
+    link: 'https://github.com/YashhCanCode/MNIST_Klassifier',
+  },
+  {
+    title: 'Price Prediction',
+    tag: 'Regression',
+    description: 'An ML regression model predicting prices from historical data with feature engineering.',
+    tech: ['Python', 'scikit-learn', 'Pandas'],
+    link: 'https://github.com/YashhCanCode/Price_Prediction',
+  },
+  {
+    title: 'Spam Classifier',
+    tag: 'NLP',
+    description: 'A natural-language model classifying messages as spam or ham via text vectorization.',
+    tech: ['Python', 'NLP', 'scikit-learn'],
+    link: 'https://github.com/YashhCanCode/Spam_Classifier',
+  },
+  {
+    title: 'Netflix Analysis',
+    tag: 'Exploratory Analysis',
+    description: 'Exploratory analysis of the Netflix catalog — trends across genres, years, and content types.',
+    tech: ['Python', 'Pandas', 'Matplotlib'],
+    link: 'https://github.com/YashhCanCode/Netflix-Analysis',
+  },
+  {
+    title: 'E-Commerce Analysis',
+    tag: 'Data Analysis',
+    description: 'Digging into e-commerce sales and customer behavior to surface actionable insights.',
+    tech: ['Python', 'Pandas', 'Data Viz'],
+    link: 'https://github.com/YashhCanCode/E-Commerce-Analysis',
+  },
+];
+
+const groups = {
+  featured: { label: 'Featured' },
+  data: { label: 'Data & ML' },
 };
 
 const GitHubIcon = ({ className }) => (
@@ -61,176 +98,113 @@ const GitHubIcon = ({ className }) => (
   </svg>
 );
 
-const ROTATION = 9; // max tilt in degrees
+const Arrow = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+  </svg>
+);
 
-const ProjectCard = ({ project, index }) => {
-  // Normalized pointer position (-0.5 .. 0.5) relative to card center
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  // Raw pointer position in px for the spotlight
-  const spotX = useMotionValue(0);
-  const spotY = useMotionValue(0);
-
-  const rotateX = useSpring(useTransform(py, [-0.5, 0.5], [ROTATION, -ROTATION]), {
-    stiffness: 150,
-    damping: 18,
-  });
-  const rotateY = useSpring(useTransform(px, [-0.5, 0.5], [-ROTATION, ROTATION]), {
-    stiffness: 150,
-    damping: 18,
-  });
-
-  const spotlight = useMotionTemplate`radial-gradient(320px circle at ${spotX}px ${spotY}px, rgba(194,159,116,0.18), transparent 70%)`;
-
-  const handleMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const localX = e.clientX - rect.left;
-    const localY = e.clientY - rect.top;
-    px.set(localX / rect.width - 0.5);
-    py.set(localY / rect.height - 0.5);
-    spotX.set(localX);
-    spotY.set(localY);
-  };
-
-  const handleLeave = () => {
-    px.set(0);
-    py.set(0);
-  };
-
-  return (
-    <motion.div
-      custom={index}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: '-80px' }}
-      style={{ perspective: 1000 }}
-      className="h-full"
-    >
-      <motion.div
-        onMouseMove={handleMove}
-        onMouseLeave={handleLeave}
-        style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
-        whileHover={{ scale: 1.02 }}
-        transition={{ scale: { duration: 0.3, ease: 'easeOut' } }}
-        className="group relative h-full flex flex-col rounded-3xl bg-white border border-black/5 p-8 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_30px_70px_rgba(194,159,116,0.22)] transition-shadow duration-500 overflow-hidden"
-      >
-        {/* Spotlight glare — follows the cursor */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-          style={{ background: spotlight }}
-        />
-        {/* Gold border that lights up on hover */}
-        <div className="pointer-events-none absolute inset-0 rounded-3xl border border-brand-accent/0 group-hover:border-brand-accent/30 transition-colors duration-500" />
-
-        {/* Content lifted forward in 3D space */}
-        <div
-          className="relative z-10 flex flex-col h-full"
-          style={{ transform: 'translateZ(45px)', transformStyle: 'preserve-3d' }}
-        >
-          {/* Top row */}
-          <div className="flex items-center justify-between mb-5">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent">
-              {project.tag}
-            </span>
-            {project.status && (
-              <span className="flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-brand-medium bg-brand-accent/10 border border-brand-accent/20 rounded-full px-3 py-1">
-                <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse" />
-                {project.status}
-              </span>
-            )}
-          </div>
-
-          <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">
-            {project.title}
-          </h3>
-
-          <p className="text-sm text-gray-500 leading-relaxed font-medium mb-6 flex-1">
-            {project.description}
-          </p>
-
-          {/* Tech pills */}
-          <div className="flex flex-wrap gap-2 mb-6">
-            {project.tech.map((t) => (
-              <span
-                key={t}
-                className="px-3 py-1 text-[11px] font-semibold text-gray-600 bg-black/[0.03] border border-black/5 rounded-full"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* Link */}
-          <div className="mt-auto">
-            {project.link ? (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-bold text-gray-900 group-hover:text-brand-accent transition-colors duration-300 w-fit"
-              >
-                <GitHubIcon className="w-4 h-4" />
-                View on GitHub
-                <svg
-                  className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </a>
-            ) : (
-              <span className="inline-flex items-center gap-2 text-sm font-bold text-gray-400 w-fit">
-                Coming soon
-              </span>
-            )}
-          </div>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-};
+// Quiet supporting card
+const SmallCard = ({ p }) => (
+  <div className="rounded-2xl bg-white border border-black/[0.07] p-6 hover:border-black/20 transition-colors duration-300 flex flex-col">
+    <div className="flex items-center justify-between mb-3">
+      <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent">{p.tag}</span>
+      {p.status && <span className="text-[10px] font-bold uppercase tracking-wider text-brand-medium">{p.status}</span>}
+    </div>
+    <h3 className="text-xl font-black text-brand-dark tracking-tight mb-2">{p.title}</h3>
+    <p className="text-sm text-gray-500 leading-relaxed font-medium mb-5 flex-1">{p.description}</p>
+    <div className="flex flex-wrap gap-1.5 mb-5">
+      {p.tech.map((t) => (
+        <span key={t} className="px-2.5 py-1 text-[11px] font-semibold text-gray-500 bg-black/[0.03] rounded-full">{t}</span>
+      ))}
+    </div>
+    {p.link ? (
+      <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-accent transition-colors">
+        <GitHubIcon className="w-4 h-4" /> GitHub <Arrow className="w-4 h-4" />
+      </a>
+    ) : (
+      <span className="text-sm font-bold text-gray-400">Coming soon</span>
+    )}
+  </div>
+);
 
 const Projects = () => {
+  const [tab, setTab] = useState('featured');
+
   return (
-    <section
-      id="projects"
-      className="relative w-full bg-brand-light py-20 md:py-28 px-6 md:px-12 overflow-hidden font-sans"
-    >
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
-          className="mb-12 md:mb-16 max-w-2xl"
-        >
-          <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-600 font-bold mb-6 shadow-sm bg-white">
+    <section id="projects" className="relative w-full bg-brand-light py-24 md:py-36 px-6 md:px-12 font-sans">
+      <div className="max-w-6xl mx-auto">
+        {/* Header — given room to breathe */}
+        <div className="max-w-2xl mb-10">
+          <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-600 font-bold mb-6 bg-white">
             Selected Work
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-brand-dark leading-[1.1] tracking-tight mb-5">
+          <h2 className="text-4xl md:text-6xl font-black text-brand-dark leading-[1.05] tracking-tight mb-5">
             Projects I&apos;ve Built
           </h2>
           <p className="text-brand-medium text-base md:text-lg font-medium leading-relaxed">
-            From retrieval-augmented systems to on-device language models &mdash; a
-            selection of things I&apos;ve designed, built, and shipped.
+            From retrieval-augmented systems to machine-learning models.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+        {/* Toggle */}
+        <div className="inline-flex bg-black/[0.05] rounded-full p-1 mb-12">
+          {Object.entries(groups).map(([key, g]) => (
+            <button
+              key={key}
+              onClick={() => setTab(key)}
+              className={`relative px-5 py-2 rounded-full text-sm font-bold transition-colors duration-300 ${tab === key ? 'text-white' : 'text-brand-medium hover:text-brand-dark'}`}
+            >
+              {tab === key && (
+                <motion.span layoutId="projectTab" className="absolute inset-0 bg-brand-dark rounded-full" transition={{ type: 'spring', stiffness: 400, damping: 32 }} />
+              )}
+              <span className="relative z-10">{g.label}</span>
+            </button>
           ))}
         </div>
-      </div>
 
-      {/* Decorative accent blob */}
-      <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none" />
+        {/* FEATURED — one large card, then quieter supporting cards (varied rhythm) */}
+        {tab === 'featured' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {featured.map((p) => (
+              <SmallCard key={p.title} p={p} />
+            ))}
+          </div>
+        )}
+
+        {/* DATA — a tight list, not another card grid */}
+        {tab === 'data' && (
+          <div className="border-t border-black/10">
+            {dataProjects.map((p) => (
+              <a
+                key={p.title}
+                href={p.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-6 py-6 border-b border-black/10 hover:px-2 transition-[padding] duration-300"
+              >
+                <div className="min-w-0">
+                  <div className="flex items-baseline gap-3 mb-1">
+                    <h3 className="text-xl md:text-2xl font-black text-brand-dark tracking-tight group-hover:text-brand-accent transition-colors">
+                      {p.title}
+                    </h3>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-brand-accent">{p.tag}</span>
+                  </div>
+                  <p className="text-sm text-gray-500 font-medium max-w-xl">{p.description}</p>
+                </div>
+                <div className="flex items-center gap-4 shrink-0">
+                  <div className="hidden md:flex flex-wrap gap-1.5 justify-end max-w-[220px]">
+                    {p.tech.map((t) => (
+                      <span key={t} className="px-2.5 py-1 text-[11px] font-semibold text-gray-500 bg-black/[0.03] rounded-full">{t}</span>
+                    ))}
+                  </div>
+                  <Arrow className="w-5 h-5 text-brand-dark transform group-hover:translate-x-1 transition-transform" />
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
+      </div>
     </section>
   );
 };

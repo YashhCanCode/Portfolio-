@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const timeline = [
@@ -40,10 +39,6 @@ const Experience = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mb-14 md:mb-16 max-w-2xl"
         >
           <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-600 font-bold mb-6 shadow-sm bg-white">
@@ -60,13 +55,9 @@ const Experience = () => {
 
         {/* Timeline */}
         <div className="relative border-l-2 border-brand-accent/20 ml-2 md:ml-4 space-y-12 mb-20">
-          {timeline.map((item, i) => (
+          {timeline.map((item) => (
             <motion.div
               key={item.org}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.1 }}
               className="relative pl-8 md:pl-12"
             >
               {/* Node */}
@@ -104,10 +95,6 @@ const Experience = () => {
 
         {/* Open Source */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           <div className="flex items-center gap-3 mb-8">
             <h3 className="text-2xl md:text-3xl font-black text-brand-dark tracking-tight">
@@ -121,7 +108,7 @@ const Experience = () => {
                 href={repo.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col bg-white border border-black/5 rounded-2xl p-6 hover:border-brand-accent/30 hover:shadow-[0_15px_40px_rgba(194,159,116,0.12)] transition-all duration-400"
+                className="group flex flex-col bg-white border border-black/5 rounded-2xl p-6 hover:border-brand-accent/30 hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] transition-all duration-400"
               >
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-lg font-black text-gray-900 group-hover:text-brand-accent transition-colors">

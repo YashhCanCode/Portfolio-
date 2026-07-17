@@ -1,4 +1,3 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 const certifications = [
@@ -40,10 +39,6 @@ const Certifications = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="mb-12 md:mb-16 max-w-2xl"
         >
           <div className="inline-block border border-gray-300 rounded-full px-5 py-1.5 text-sm text-gray-600 font-bold mb-6 shadow-sm bg-white">
@@ -59,15 +54,11 @@ const Certifications = () => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-          {certifications.map((cert, i) => (
+          {certifications.map((cert) => (
             <motion.div
               key={cert.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-80px' }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.12 }}
               whileHover={{ y: -8 }}
-              className="group relative flex flex-col bg-white border border-black/5 rounded-3xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_60px_rgba(194,159,116,0.18)] transition-shadow duration-500 overflow-hidden"
+              className="group relative flex flex-col bg-white border border-black/5 rounded-3xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] transition-shadow duration-500 overflow-hidden"
             >
               {/* Corner accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-[3rem] pointer-events-none" />

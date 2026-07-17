@@ -1,13 +1,105 @@
-import React from 'react';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import run1 from '../assets/run/run1.jpg';
+import run2 from '../assets/run/run2.jpg';
+import run3 from '../assets/run/run3.jpg';
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i) => ({
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: 'easeOut', delay: i * 0.15 },
-  }),
+const runImages = [run1, run2, run3];
+
+const RunGallery = () => {
+  const [open, setOpen] = useState(false);
+  const [idx, setIdx] = useState(0);
+  const next = () => setIdx((i) => (i + 1) % runImages.length);
+  const prev = () => setIdx((i) => (i - 1 + runImages.length) % runImages.length);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setOpen(false);
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
+    };
+    window.addEventListener('keydown', onKey);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      document.body.style.overflow = '';
+    };
+  }, [open]);
+
+  return (
+    <>
+      {/* Compact trigger — stacked thumbnails, does not grow the card */}
+      <button onClick={() => { setIdx(0); setOpen(true); }} className="group flex items-center gap-4 mb-6">
+        <div className="relative w-16 h-14 shrink-0">
+          {runImages.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              className={`absolute top-0 left-0 w-12 h-12 object-cover rounded-lg border-2 border-white shadow-md transition-transform duration-300 ${
+                i === 0 ? '-rotate-6' : i === 1 ? 'rotate-3 translate-x-2' : 'rotate-[10deg] translate-x-4'
+              }`}
+              style={{ zIndex: runImages.length - i }}
+            />
+          ))}
+        </div>
+        <span className="text-sm font-bold text-brand-dark group-hover:text-brand-accent transition-colors inline-flex items-center gap-1">
+          See my runs
+          <svg className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </span>
+      </button>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={() => setOpen(false)}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4"
+          >
+            {/* Close */}
+            <button onClick={() => setOpen(false)} aria-label="Close" className="absolute top-5 right-5 text-white/70 hover:text-white">
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            {/* Prev */}
+            <button onClick={(e) => { e.stopPropagation(); prev(); }} aria-label="Previous" className="absolute left-3 md:left-8 text-white/70 hover:text-white p-2">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            {/* Image */}
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={idx}
+                src={runImages[idx]}
+                alt={`Run ${idx + 1}`}
+                onClick={(e) => e.stopPropagation()}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -30 }}
+                transition={{ duration: 0.25, ease: 'easeOut' }}
+                className="max-h-[55vh] sm:max-h-[60vh] max-w-[62vw] object-contain rounded-xl shadow-2xl"
+              />
+            </AnimatePresence>
+            {/* Next */}
+            <button onClick={(e) => { e.stopPropagation(); next(); }} aria-label="Next" className="absolute right-3 md:right-8 text-white/70 hover:text-white p-2">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+            {/* Dots */}
+            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+              {runImages.map((_, i) => (
+                <button key={i} onClick={(e) => { e.stopPropagation(); setIdx(i); }} aria-label={`Run ${i + 1}`} className={`h-2 rounded-full transition-all duration-300 ${i === idx ? 'w-5 bg-white' : 'w-2 bg-white/40 hover:bg-white/70'}`} />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 };
 
 const OffClock = () => {
@@ -19,10 +111,6 @@ const OffClock = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-2xl mb-12 md:mb-16"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -47,13 +135,8 @@ const OffClock = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Running card */}
           <motion.div
-            custom={0}
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
             whileHover={{ y: -8 }}
-            className="relative bg-white rounded-3xl p-8 border border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_60px_rgba(194,159,116,0.18)] transition-shadow duration-500 overflow-hidden"
+            className="relative bg-white rounded-3xl p-8 border border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] transition-shadow duration-500 overflow-hidden"
           >
             <div className="text-4xl mb-5">🏃‍♂️</div>
             <h3 className="text-2xl font-black text-brand-dark tracking-tight mb-2">
@@ -63,6 +146,8 @@ const OffClock = () => {
               Long runs are my reset button — where half my best debugging ideas
               actually show up.
             </p>
+
+            <RunGallery />
 
             <div className="grid grid-cols-3 gap-3 mb-6">
               {[
@@ -100,13 +185,8 @@ const OffClock = () => {
 
           {/* Chess card */}
           <motion.div
-            custom={1}
-            variants={cardVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: '-60px' }}
             whileHover={{ y: -8 }}
-            className="relative bg-white rounded-3xl p-8 border border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_25px_60px_rgba(194,159,116,0.18)] transition-shadow duration-500 overflow-hidden"
+            className="relative bg-white rounded-3xl p-8 border border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] transition-shadow duration-500 overflow-hidden"
           >
             <div className="text-4xl mb-5">♟️</div>
             <h3 className="text-2xl font-black text-brand-dark tracking-tight mb-2">
@@ -144,7 +224,6 @@ const OffClock = () => {
       </div>
 
       {/* Decorative accent blob */}
-      <div className="absolute -bottom-16 -right-16 w-64 h-64 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none" />
     </section>
   );
 };

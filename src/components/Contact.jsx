@@ -1,61 +1,72 @@
-import React, { useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+
+const PHONE = '+918125409656';
+const PHONE_DISPLAY = '+91 81254 09656';
+const EMAIL = 'yashwanthkonnuru@gmail.com';
+
+// Get a free key at https://web3forms.com (enter your email — no account needed),
+// then paste it here. Messages are delivered straight to your inbox.
+const ACCESS_KEY = 'b0e0f427-5e3a-4255-afc0-954df21c146b';
 
 const Contact = () => {
   const ref = useRef(null);
-  
-  // React Form State tracking
+  const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     message: '',
-    permission: false
   });
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"]
-  });
-  
-  // Parallax translation for the big text
-  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "30%"]);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  const y = useTransform(scrollYProgress, [0, 1], ['-20%', '30%']);
 
-  // Handle input changes dynamically
   const handleChange = (e) => {
-    const { id, value, type, checked } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: type === 'checkbox' ? checked : value
-    }));
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
   };
 
-  // Handle form submission logic
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevents the painful page-refresh crash
-
-    if (!formData.permission) {
-      alert("Please accept the contact permission checkbox.");
-      return;
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus('sending');
+    try {
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `Portfolio message from ${formData.firstName} ${formData.lastName}`.trim(),
+          from_name: `${formData.firstName} ${formData.lastName}`.trim(),
+          name: `${formData.firstName} ${formData.lastName}`.trim(),
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setStatus('success');
+        setFormData({ firstName: '', lastName: '', email: '', message: '' });
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
     }
-
-    // Process your form payload safely here (e.g., Axios, EmailJS, Fetch API)
-    console.log("Form Data Submitted Successfully:", formData);
-    alert(`Thanks ${formData.firstName}! Message captured.`);
-    
-    // Optional Reset
-    setFormData({ firstName: '', lastName: '', email: '', message: '', permission: false });
   };
 
   return (
-    <section ref={ref} id="contact" className="bg-[#0a0a0a] w-full min-h-screen relative overflow-hidden flex items-end pt-32 pb-0 md:pb-0 border-t border-gray-900">
-      
+    <section
+      ref={ref}
+      id="contact"
+      className="bg-[#0a0a0a] w-full min-h-[85vh] relative overflow-hidden flex items-end pt-32 pb-0 border-t border-gray-900"
+    >
       {/* Huge Background Text */}
-      <motion.div 
+      <motion.div
         style={{ y }}
         className="absolute top-0 left-0 w-full h-full flex flex-col justify-start items-center overflow-hidden pointer-events-none z-0 pt-16 md:pt-12"
       >
-        <h1 
+        <h1
           className="text-[25vw] leading-[0.75] font-black text-white uppercase tracking-tighter select-none scale-y-[1.6] origin-top"
           style={{ fontFamily: "'Impact', 'Arial Black', sans-serif" }}
         >
@@ -63,116 +74,106 @@ const Contact = () => {
         </h1>
       </motion.div>
 
-      {/* Form Card Overlay (Upgraded from AOS to Framer Motion built-in viewport engine) */}
+      {/* Card (smaller) */}
       <div className="relative z-10 w-full flex justify-end items-end">
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="bg-brand-dark border border-brand-accent/20 w-full md:w-[85%] lg:w-[75%] p-8 md:p-16 text-white flex flex-col justify-between"
-        >
-          <div className="text-xs font-bold tracking-[0.2em] mb-12 md:mb-20 uppercase opacity-90">
-            Reach Us
+        <div className="bg-brand-dark border border-brand-accent/20 w-full md:w-[72%] lg:w-[58%] p-8 md:p-12 text-white flex flex-col">
+          {/* Header */}
+          <div className="mb-8 md:mb-10">
+            <p className="text-xs font-bold tracking-[0.25em] uppercase text-brand-accent mb-3">
+              Reach Me
+            </p>
+            <h2 className="font-display text-2xl md:text-3xl font-light leading-tight max-w-md">
+              Looking to hire or collaborate? Let&apos;s talk.
+            </h2>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-16 w-full">
-            <div className="flex flex-col md:flex-row gap-12 md:gap-20 w-full">
-              
-              {/* Left Column */}
-              <div className="flex-1 flex flex-col gap-10">
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="firstName" 
+          {/* Direct contact details */}
+          <div className="flex flex-col sm:flex-row gap-6 sm:gap-12 mb-8 md:mb-10">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-semibold mb-1.5">Call / WhatsApp</p>
+              <a href={`tel:${PHONE}`} className="text-base md:text-lg font-bold hover:text-brand-accent transition-colors">
+                {PHONE_DISPLAY}
+              </a>
+            </div>
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-semibold mb-1.5">Email</p>
+              <a href={`mailto:${EMAIL}`} className="text-base md:text-lg font-bold hover:text-brand-accent transition-colors break-all">
+                {EMAIL}
+              </a>
+            </div>
+          </div>
+
+          {/* Form */}
+          <div className="pt-8 border-t border-white/10">
+            <p className="text-sm text-white/50 font-medium mb-6">
+              Or send me a message right here.
+            </p>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-12 w-full">
+                <div className="flex-1 flex flex-col gap-7">
+                  <input
+                    type="text"
+                    id="firstName"
                     value={formData.firstName}
                     onChange={handleChange}
-                    placeholder="First Name" 
+                    placeholder="First Name"
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-white/40 pb-2.5 text-base focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
                   />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="text" 
-                    id="lastName" 
+                  <input
+                    type="text"
+                    id="lastName"
                     value={formData.lastName}
                     onChange={handleChange}
-                    placeholder="Last Name" 
-                    required
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
+                    placeholder="Last Name"
+                    className="w-full bg-transparent border-b border-white/40 pb-2.5 text-base focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
                   />
-                </div>
-                <div className="relative">
-                  <input 
-                    type="email" 
-                    id="email" 
+                  <input
+                    type="email"
+                    id="email"
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="Email" 
+                    placeholder="Your Email"
                     required
-                    className="w-full bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium rounded-none"
+                    className="w-full bg-transparent border-b border-white/40 pb-2.5 text-base focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium rounded-none"
                   />
                 </div>
-              </div>
-
-              {/* Right Column */}
-              <div className="flex-1 flex flex-col">
-                <div className="relative h-full flex flex-col">
-                  <textarea 
-                    id="message" 
+                <div className="flex-1 flex flex-col">
+                  <textarea
+                    id="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Type your message here" 
+                    placeholder="Tell me about the role or project"
                     required
-                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-3 text-lg focus:outline-none focus:border-white transition-colors placeholder-white font-medium resize-none rounded-none"
+                    className="w-full h-full min-h-[120px] bg-transparent border-b border-white/40 pb-2.5 text-base focus:outline-none focus:border-white transition-colors placeholder-white/60 font-medium resize-none rounded-none"
                   ></textarea>
                 </div>
               </div>
-            </div>
 
-            {/* Bottom Section */}
-            <div className="flex flex-col md:flex-row gap-12 mt-4">
-              {/* Left text */}
-              <div className="flex-1 flex items-start gap-4 text-sm font-medium text-white/90">
-                <input 
-                  type="checkbox" 
-                  id="permission" 
-                  checked={formData.permission}
-                  onChange={handleChange}
-                  className="mt-1 w-4 h-4 rounded-sm border-white/40 bg-transparent text-white focus:ring-white focus:ring-offset-0 focus:ring-offset-transparent cursor-pointer" 
-                  style={{ accentColor: "white" }}
-                />
-                <label htmlFor="permission" className="cursor-pointer max-w-[280px] leading-snug">
-                  I give permission to contact me at this email address.
-                </label>
-              </div>
-
-              {/* Right text & button */}
-              <div className="flex-1 flex flex-col gap-8 text-xs text-white/70 font-medium">
-                <p className="leading-relaxed max-w-[400px]">
-                  This site is protected by reCAPTCHA and the Google <a href="#" className="underline hover:text-white transition-colors">Privacy Policy</a> and <a href="#" className="underline hover:text-white transition-colors">Terms of Service</a> apply.
+              <div className="flex items-center justify-between gap-4">
+                <p
+                  className={`text-sm font-medium transition-colors ${status === 'success' ? 'text-green-400' : status === 'error' ? 'text-red-400' : 'text-white/40'
+                    }`}
+                  role="status"
+                >
+                  {status === 'success' && "Thanks — your message is on its way. I'll be in touch."}
+                  {status === 'error' && 'Something went wrong. Please email or call me directly.'}
+                  {status === 'sending' && 'Sending…'}
                 </p>
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-6">
-                  <p className="max-w-[250px] leading-relaxed">
-                    For information on how to unsubscribe, please review our <a href="#" className="underline hover:text-white transition-colors">privacy policy</a>.
-                  </p>
-                  
-                  <button 
-                    type="submit" 
-                    className="px-8 py-3 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 hover:bg-brand-accent hover:text-brand-dark hover:border-brand-accent transition-all duration-300 group whitespace-nowrap self-start sm:self-auto"
-                  >
-                    Send
-                    <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  disabled={status === 'sending'}
+                  className="px-8 py-3 rounded-full border border-white/40 text-white font-bold flex items-center justify-center gap-3 hover:bg-brand-accent hover:text-brand-dark hover:border-brand-accent transition-all duration-300 group whitespace-nowrap disabled:opacity-50"
+                >
+                  {status === 'sending' ? 'Sending' : 'Send'}
+                  <svg className="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
               </div>
-            </div>
-          </form>
-
-        </motion.div>
+            </form>
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -1,4 +1,3 @@
-import React from 'react';
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/YashhCanCode' },

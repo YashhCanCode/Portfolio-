@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 
 const USER = 'Yashcancode';
@@ -101,10 +101,6 @@ const LeetCode = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-2xl mb-12 md:mb-16"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -129,10 +125,6 @@ const LeetCode = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 items-stretch">
           {/* Stats card */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
             className="bg-brand-light rounded-3xl p-6 md:p-8 border border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)] flex flex-col"
           >
             <div className="mb-8">
@@ -184,10 +176,6 @@ const LeetCode = () => {
 
           {/* Recently solved */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-60px' }}
-            transition={{ duration: 0.6, ease: 'easeOut', delay: 0.15 }}
             className="bg-brand-light rounded-3xl p-6 border border-black/5 shadow-[0_15px_40px_rgba(0,0,0,0.05)] flex flex-col"
           >
             <div className="flex items-center justify-between mb-5">

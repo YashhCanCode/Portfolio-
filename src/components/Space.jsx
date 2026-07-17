@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const reels = [
@@ -36,10 +36,6 @@ const Space = () => {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
           className="max-w-2xl mb-12 md:mb-16"
         >
           <div className="flex items-center gap-3 mb-6">
@@ -82,13 +78,9 @@ const Space = () => {
 
         {/* Reels — embed shows the preview, click layer redirects to Instagram (never plays inline) */}
         <div className="flex flex-col md:flex-row justify-center items-start gap-6 md:gap-5">
-          {reels.map((url, i) => (
+          {reels.map((url) => (
             <motion.div
               key={url}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: i * 0.12 }}
               className="relative w-full md:flex-1 md:max-w-[350px] mx-auto"
             >
               <blockquote
@@ -125,7 +117,6 @@ const Space = () => {
       </div>
 
       {/* Decorative accent blob */}
-      <div className="absolute -top-16 -left-16 w-64 h-64 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none" />
     </section>
   );
 };

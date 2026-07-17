@@ -1,8 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import focus from '../assets/about/polaroid.jpg';
-import learn from '../assets/about/learn.jpg';
-import positive from '../assets/about/positive.jpg';
+import focus from '../assets/about/polaroid.webp';
+import learn from '../assets/about/learn.webp';
+import positive from '../assets/about/positive.webp';
 
 /* ---- animated count-up ---- */
 const useCountUp = (end, duration = 1400, start = false) => {
@@ -108,7 +108,7 @@ const About = () => {
 
             <p className="font-sans text-base md:text-lg text-brand-medium leading-relaxed mb-5 max-w-lg">
               I&apos;m <span className="font-semibold text-brand-dark">Konnuru Yashwanth</span>,
-              an aspiring AI Engineer based in Hyderabad. I love turning
+              an aspiring AI ｘ Software Engineer based in Hyderabad. I love turning
               hard problems into clean, functional, scalable products — building
               across the stack, from backend systems to LLM-powered applications.
             </p>
@@ -119,7 +119,7 @@ const About = () => {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6 max-w-md border-t border-brand-dark/10 pt-8">
-              <Stat end={4} suffix="+" label="Projects Built" start={inView} />
+              <Stat end={10} suffix="+" label="Projects Built" start={inView} />
               <Stat end={3} suffix="" label="Open-Source Repos" start={inView} />
               <Stat end={1} suffix="" label="AI Internship" start={inView} />
             </div>

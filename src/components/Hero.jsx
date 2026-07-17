@@ -1,9 +1,8 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-import sticker from '../assets/about/sticker.png';
-import reactLogo from '../assets/about/react.png';
-import nodeLogo from '../assets/about/node.png';
-import mongoLogo from '../assets/about/mongodb.png';
+import sticker from '../assets/about/sticker.webp';
+import reactLogo from '../assets/about/react.webp';
+import nodeLogo from '../assets/about/node.webp';
+import mongoLogo from '../assets/about/mongodb.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -27,7 +26,7 @@ const Hero = () => {
           <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0} className="flex items-center gap-3 mb-6">
             <span className="h-px w-8 bg-brand-accent" />
             <span className="text-xs uppercase tracking-[0.3em] text-brand-medium font-semibold">
-              Konnuru Yashwanth · Hyderabad, India
+              Konnuru Yashwanth · Open to Opportunities
             </span>
           </motion.div>
 
@@ -38,13 +37,13 @@ const Hero = () => {
             custom={0.1}
             className="text-brand-dark font-black tracking-tight leading-[0.98] text-5xl sm:text-6xl lg:text-7xl mb-8"
           >
-            Aspiring AI engineer,
+            I build things that work &mdash;
             <br />
-            building{' '}
+            and things that{' '}
             <span className="relative inline-block text-brand-accent">
-              what&apos;s next.
-              <svg className="absolute -bottom-2 left-0 w-full" height="14" viewBox="0 0 300 14" fill="none" preserveAspectRatio="none">
-                <path d="M2 9C60 4 180 3 298 7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+              think.
+              <svg className="absolute -bottom-2 left-0 w-full" height="14" viewBox="0 0 160 14" fill="none" preserveAspectRatio="none">
+                <path d="M2 9C35 4 110 3 158 7" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
               </svg>
             </span>
           </motion.h1>
@@ -56,7 +55,7 @@ const Hero = () => {
             custom={0.2}
             className="text-brand-medium text-base md:text-lg leading-relaxed max-w-md mb-10"
           >
-            I design and build fast, scalable, modern AI applications — from
+            AI Product Builder — I turn ideas into intelligent products, from
             retrieval-augmented systems to on-device language models.
           </motion.p>
 
@@ -103,7 +102,6 @@ const Hero = () => {
         {/* ---- RIGHT: sticker cutout + accent cards ---- */}
         <div className="relative h-[460px] sm:h-[540px] lg:h-[580px] w-full">
           {/* soft accent glow behind the sticker */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-72 h-72 bg-brand-accent/20 rounded-full blur-3xl pointer-events-none" />
 
           {/* dashed connector path (draws once, then static) */}
           <svg className="absolute inset-0 w-full h-full pointer-events-none z-0" viewBox="0 0 500 580" fill="none" preserveAspectRatio="none">
@@ -142,8 +140,7 @@ const Hero = () => {
             <div className="flex items-center gap-3 bg-white rounded-2xl px-4 py-3 shadow-[0_18px_45px_rgba(29,19,12,0.16)]">
               <span className="inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
               <div className="leading-tight">
-                <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold">Currently</p>
-                <p className="text-xs font-bold text-brand-dark">Intern @ Fly Rank AI</p>
+                <p className="text-xs font-bold text-brand-dark">AI Engineer Intern @ Fly Rank AI</p>
               </div>
             </div>
           </motion.div>
