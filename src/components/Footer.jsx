@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 
 const socials = [
   { label: 'GitHub', href: 'https://github.com/YashhCanCode' },
@@ -7,6 +8,14 @@ const socials = [
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const [time, setTime] = useState('');
+  useEffect(() => {
+    const upd = () =>
+      setTime(new Date().toLocaleTimeString('en-US', { timeZone: 'Asia/Kolkata', hour: '2-digit', minute: '2-digit' }));
+    upd();
+    const t = setInterval(upd, 30000);
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <footer className="bg-[#111111] text-[#d4d4d4] py-16 px-6 md:px-12 w-full font-mono text-[10px] md:text-xs tracking-widest flex flex-col justify-between min-h-[50vh]">
@@ -21,6 +30,10 @@ const Footer = () => {
 
         <div className="flex flex-col gap-1 md:items-center">
           <p>Based in Hyderabad, India</p>
+          <p className="text-white/50 normal-case tracking-normal">
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-green-500 mr-1.5 align-middle" />
+            {time} local time
+          </p>
           <a href="#projects" className="underline hover:text-white transition-colors mt-1 underline-offset-4 decoration-1">View Work</a>
         </div>
 
@@ -41,8 +54,9 @@ const Footer = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 w-full items-end font-medium">
         <div className="flex flex-col gap-6">
           <a href="#contact" className="underline hover:text-white transition-colors underline-offset-4 decoration-1 font-bold">Contact</a>
+          <p className="font-['Caveat'] text-3xl text-brand-accent normal-case tracking-normal leading-none">Konnuru Yashwanth</p>
           <p className="text-white/60 font-mono text-[9px] md:text-[10px]">
-            &copy; {year} Konnuru Yashwanth &middot; Built with care
+            &copy; {year} &middot; Built with care
           </p>
         </div>
 

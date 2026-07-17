@@ -41,6 +41,11 @@ const Skills = () => {
 
   return (
     <section id="skills" className="relative w-full bg-white py-16 md:py-20 overflow-hidden">
+      {/* Subtle grid pattern background */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_24%,rgba(0,0,0,.05)_25%,rgba(0,0,0,.05)_26%,transparent_27%,transparent_74%,rgba(0,0,0,.05)_75%,rgba(0,0,0,.05)_76%,transparent_77%,transparent),linear-gradient(0deg,transparent_24%,rgba(0,0,0,.05)_25%,rgba(0,0,0,.05)_26%,transparent_27%,transparent_74%,rgba(0,0,0,.05)_75%,rgba(0,0,0,.05)_76%,transparent_77%,transparent)] bg-[length:50px_50px]" />
+      </div>
+
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
         <div className="mb-10 md:mb-12">
           <div className="mb-3">

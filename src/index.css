@@ -58,3 +58,40 @@ body {
 .animate-marquee:hover {
   animation-play-state: paused;
 }
+
+/* Brand text selection */
+::selection {
+  background: var(--color-brand-accent);
+  color: #fff;
+}
+
+/* Custom scrollbar */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-medium) transparent;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-brand-medium);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-brand-accent);
+  background-clip: content-box;
+}
+
+/* Grain overlay */
+.grain-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* Easter-egg emoji fall */
+@keyframes fall {
+  0% { transform: translateY(-12vh) rotate(0deg); }
+  100% { transform: translateY(112vh) rotate(360deg); }
+}
+.emoji-fall { animation: fall 3.8s linear infinite; }

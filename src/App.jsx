@@ -1,3 +1,5 @@
+import ScrollProgress from './components/ScrollProgress'
+import KonamiEasterEgg from './components/KonamiEasterEgg'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -16,6 +18,9 @@ import Footer from './components/Footer'
 function App() {
   return (
     <>
+      <ScrollProgress />
+      <div aria-hidden className="grain-overlay pointer-events-none fixed inset-0 z-[45] opacity-[0.045]" />
+      <KonamiEasterEgg />
       <Preloader />
       <Navbar />
       <Hero />
