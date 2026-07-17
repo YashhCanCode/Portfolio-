@@ -13,7 +13,7 @@ const certifications = [
   {
     title: 'AI Fluency',
     issuer: 'Anthropic',
-    year: '2025',
+    year: '2026',
     description:
       'Completed Anthropic\u2019s AI Fluency program — a framework for working effectively, efficiently, and responsibly with AI systems and large language models.',
     skills: ['AI Collaboration', 'Prompt Engineering', 'Responsible AI', 'Working with Claude'],
@@ -34,7 +34,7 @@ const Certifications = () => {
   return (
     <section
       id="certifications"
-      className="relative w-full bg-brand-light py-20 md:py-28 px-6 md:px-12 overflow-hidden font-sans"
+      className="relative w-full bg-brand-light py-16 md:py-24 px-6 md:px-12 overflow-hidden font-sans"
     >
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
@@ -53,19 +53,19 @@ const Certifications = () => {
         </motion.div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {certifications.map((cert) => (
             <motion.div
               key={cert.title}
               whileHover={{ y: -8 }}
-              className="group relative flex flex-col bg-white border border-black/5 rounded-3xl p-8 shadow-[0_15px_40px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] transition-shadow duration-500 overflow-hidden"
+              className="group relative flex flex-col bg-white border border-black/5 rounded-2xl p-6 shadow-[0_12px_30px_rgba(0,0,0,0.05)] hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] transition-shadow duration-500 overflow-hidden"
             >
               {/* Corner accent */}
               <div className="absolute top-0 right-0 w-24 h-24 bg-brand-accent/10 rounded-bl-[3rem] pointer-events-none" />
 
               {/* Badge icon */}
-              <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-dark mb-6 shadow-lg">
-                <svg className="w-7 h-7 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-brand-dark mb-4 shadow-lg">
+                <svg className="w-5 h-5 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
@@ -77,11 +77,11 @@ const Certifications = () => {
                 <span className="text-xs font-bold text-gray-400">{cert.year}</span>
               </div>
 
-              <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">
+              <h3 className="text-lg font-black text-gray-900 mb-2 tracking-tight">
                 {cert.title}
               </h3>
 
-              <p className="text-sm text-gray-500 leading-relaxed font-medium mb-6 flex-1">
+              <p className="text-[13px] text-gray-500 leading-relaxed font-medium mb-4 flex-1">
                 {cert.description}
               </p>
 

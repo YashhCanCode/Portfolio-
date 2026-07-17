@@ -3,16 +3,16 @@ import { motion } from 'framer-motion';
 const Skills = () => {
   const skillsData = [
     {
+      category: 'AI & Machine Learning',
+      skills: ['RAG', 'Machine Learning', 'NLP', 'Generative AI', 'LLMs', 'Prompt Engineering'],
+    },
+    {
       category: 'Frontend Development',
       skills: ['React', 'JavaScript', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Bootstrap'],
     },
     {
       category: 'Backend Development',
       skills: ['Node.js', 'Express.js', 'Java', 'Python', 'REST APIs', 'JWT Auth', 'MySQL', 'MongoDB'],
-    },
-    {
-      category: 'AI & Machine Learning',
-      skills: ['RAG', 'Machine Learning', 'NLP', 'Generative AI', 'LLMs', 'Prompt Engineering'],
     },
     {
       category: 'Tools & Cloud',
@@ -43,7 +43,7 @@ const Skills = () => {
     <section id="skills" className="relative w-full bg-white py-16 md:py-20 overflow-hidden">
       {/* Subtle grid pattern background */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_24%,rgba(0,0,0,.05)_25%,rgba(0,0,0,.05)_26%,transparent_27%,transparent_74%,rgba(0,0,0,.05)_75%,rgba(0,0,0,.05)_76%,transparent_77%,transparent),linear-gradient(0deg,transparent_24%,rgba(0,0,0,.05)_25%,rgba(0,0,0,.05)_26%,transparent_27%,transparent_74%,rgba(0,0,0,.05)_75%,rgba(0,0,0,.05)_76%,transparent_77%,transparent)] bg-[length:50px_50px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_24%,rgba(0,0,0,.05)_25%,rgba(0,0,0,.05)_26%,transparent_27%,transparent_74%,rgba(0,0,0,.05)_75%,rgba(0,0,0,.05)_76%,transparent_77%,transparent),linear-gradient(0deg,transparent_24%,rgba(0,0,0,.05)_25%,rgba(0,0,0,.05)_26%,transparent_27%,transparent_74%,rgba(0,0,0,.05)_75%,rgba(0,0,0,.05)_76%,transparent_77%,transparent)] bg-[length:50px_50px] [mask-image:linear-gradient(to_bottom,black_78%,transparent_100%)]" />
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">

@@ -110,7 +110,7 @@ const About = () => {
               I&apos;m <span className="font-semibold text-brand-dark">Konnuru Yashwanth</span>,
               an aspiring AI ｘ Software Engineer based in Hyderabad. I love turning
               hard problems into clean, functional, scalable products — building
-              across the stack, from backend systems to LLM-powered applications.
+              across the stack, from backend systems to LLM-powered applications. Also designing creative yet subtle websites.
             </p>
 
             <p className="font-script text-2xl md:text-3xl text-brand-accent mb-10">

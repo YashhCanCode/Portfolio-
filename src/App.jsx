@@ -5,9 +5,11 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
+import NewtonsCradle from './components/NewtonsCradle'
 import StickyNote from './components/StickyNote'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
+import GridMelt from './components/GridMelt'
 import Certifications from './components/Certifications'
 import LeetCode from './components/LeetCode'
 import Space from './components/Space'
@@ -35,6 +37,7 @@ function App() {
         </p>
       </StickyNote>
       <Experience />
+      <NewtonsCradle />
       <Projects />
       <StickyNote side="right" rotate="4deg">
         <p className="font-script text-xl text-brand-dark leading-tight mb-1.5">🏆 Fresh news —</p>
@@ -47,6 +50,7 @@ function App() {
       </StickyNote>
       <LeetCode />
       <Skills />
+      <GridMelt />
       <Certifications />
       <Space />
       <OffClock />
