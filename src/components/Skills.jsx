@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import ScratchCard from './ScratchCard';
 
 const Skills = () => {
   const skillsData = [
@@ -47,18 +48,21 @@ const Skills = () => {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 md:px-8">
-        <div className="mb-10 md:mb-12">
-          <div className="mb-3">
-            <span className="inline-block text-xs font-semibold text-black/50 uppercase tracking-widest px-3 py-1.5 bg-black/[0.02] border border-black/5 rounded-full">
-              Technical Stack
-            </span>
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 md:gap-6 mb-10 md:mb-12">
+          <div className="max-w-lg">
+            <div className="mb-3">
+              <span className="inline-block text-xs font-semibold text-black/50 uppercase tracking-widest px-3 py-1.5 bg-black/[0.02] border border-black/5 rounded-full">
+                Technical Stack
+              </span>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-semibold text-black mb-2 tracking-tight">
+              Technologies I Work With
+            </h2>
+            <p className="text-sm text-black/60 font-normal">
+              Full-stack expertise across modern development, AI, and cloud infrastructure.
+            </p>
           </div>
-          <h2 className="text-3xl md:text-4xl font-semibold text-black mb-2 tracking-tight">
-            Technologies I Work With
-          </h2>
-          <p className="text-sm text-black/60 font-normal">
-            Full-stack expertise across modern development, AI, and cloud infrastructure.
-          </p>
+          <ScratchCard />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6">

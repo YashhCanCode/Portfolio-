@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import run1 from '../assets/run/run1.jpg';
 import run2 from '../assets/run/run2.jpg';
 import run3 from '../assets/run/run3.jpg';
+import ChessPuzzle from './ChessPuzzle';
 
 const runImages = [run1, run2, run3];
 
@@ -109,9 +110,10 @@ const OffClock = () => {
       className="relative w-full bg-brand-light py-20 md:py-28 px-6 md:px-12 overflow-hidden font-sans"
     >
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Header */}
+        {/* Header + chess puzzle */}
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10 md:gap-8 mb-12 md:mb-16">
         <motion.div
-          className="max-w-2xl mb-12 md:mb-16"
+          className="max-w-xl"
         >
           <div className="flex items-center gap-3 mb-6">
             <span className="h-px w-8 bg-brand-accent" />
@@ -131,6 +133,8 @@ const OffClock = () => {
             I&apos;m weirdly serious about:
           </p>
         </motion.div>
+          <ChessPuzzle />
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {/* Running card */}

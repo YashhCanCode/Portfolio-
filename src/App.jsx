@@ -10,6 +10,8 @@ import StickyNote from './components/StickyNote'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
 import GridMelt from './components/GridMelt'
+import TerminalSeam from './components/TerminalSeam'
+import ModeSwitch from './components/ModeSwitch'
 import Certifications from './components/Certifications'
 import LeetCode from './components/LeetCode'
 import Space from './components/Space'
@@ -51,7 +53,9 @@ function App() {
       <LeetCode />
       <Skills />
       <GridMelt />
+      <TerminalSeam />
       <Certifications />
+      <ModeSwitch />
       <Space />
       <OffClock />
       <Contact />
