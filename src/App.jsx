@@ -42,7 +42,7 @@ function App() {
       <NewtonsCradle />
       <Projects />
       <StickyNote side="right" rotate="4deg">
-        <p className="font-script text-xl text-brand-dark leading-tight mb-1.5">🏆 Fresh news —</p>
+        <p className="font-script text-xl text-brand-dark leading-tight mb-1.5 underline"> ☘︎ Small Achievement -</p>
         <p className="font-script text-lg text-brand-dark/90 leading-snug">
           Selected for the <span className="font-bold">State-Level Buildathon</span> with <span className="font-bold">Project Evolve</span>!
         </p>

@@ -158,26 +158,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* ---- Logo strip ---- */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        animate="visible"
-        custom={1}
-        className="max-w-7xl mx-auto px-6 md:px-12 mt-12 lg:mt-16"
-      >
-        <p className="text-[11px] uppercase tracking-[0.25em] text-brand-medium/60 font-semibold mb-6">
-          Tools &amp; technologies I work with
-        </p>
-        <div className="flex flex-wrap items-center gap-x-10 gap-y-5 opacity-70">
-          <img src={reactLogo} alt="React" className="h-7 w-auto object-contain" />
-          <img src={nodeLogo} alt="Node.js" className="h-7 w-auto object-contain" />
-          <img src={mongoLogo} alt="MongoDB" className="h-7 w-auto object-contain" />
-          {['Python', 'Ollama', 'Docker', 'FastAPI'].map((t) => (
-            <span key={t} className="text-lg font-bold text-brand-dark/70 tracking-tight">{t}</span>
-          ))}
-        </div>
-      </motion.div>
+
     </section>
   );
 };

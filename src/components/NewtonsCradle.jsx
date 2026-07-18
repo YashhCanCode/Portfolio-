@@ -116,7 +116,7 @@ const NewtonsCradle = () => {
           />
           <p className="font-script text-base md:text-lg text-brand-dark text-center leading-snug -mt-12">
             Been obsessed with physics since I was a kid &mdash; honestly way more fun
-            than any other subject. Newton&apos;s cradle is my favourite, so I built one
+            than any other subject. Newton&apos;s cradle is my favourite and also exploring physics in coding, so I built one
             right here.
           </p>
           <p className="font-script text-base md:text-lg text-brand-dark text-center leading-snug">
