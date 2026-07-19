@@ -9,6 +9,7 @@ const featured = [
       'A Retrieval-Augmented Generation system that indexes codebases and answers questions grounded in real source code — combining vector search with LLM reasoning for accurate, context-aware answers.',
     tech: ['Python', 'RAG', 'Vector DB', 'LLMs', 'Embeddings'],
     link: 'https://github.com/YashhCanCode/Project-CodeRAG',
+    reel: 'https://www.instagram.com/reel/Da8AOYFTleM/',
     status: null,
   },
   {
@@ -45,6 +46,7 @@ const featured = [
       'A personal project exploring intelligent, adaptive experiences — thoughtful AI tooling built from the ground up.',
     tech: ['React', 'Node.js', 'AI'],
     link: 'https://github.com/YashhCanCode/Project-Evolve',
+    live: 'https://evolve-frontend-eta.vercel.app/',
     status: null,
   },
 ];
@@ -107,6 +109,12 @@ const Arrow = ({ className }) => (
 // Quiet supporting card
 const SmallCard = ({ p }) => (
   <div className="rounded-2xl bg-white border border-black/[0.07] p-6 hover:border-black/20 transition-colors duration-300 flex flex-col">
+    {p.reel && (
+      <a href={p.reel} target="_blank" rel="noopener noreferrer" className="font-script text-sm text-brand-accent mb-2 inline-flex items-center gap-1.5 hover:opacity-80 transition-opacity w-fit">
+        <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+        psst — I made a reel about this one!
+      </a>
+    )}
     <div className="flex items-center justify-between mb-3">
       <span className="text-[11px] font-bold uppercase tracking-widest text-brand-accent">{p.tag}</span>
       {p.status && <span className="text-[10px] font-bold uppercase tracking-wider text-brand-medium">{p.status}</span>}
@@ -118,13 +126,27 @@ const SmallCard = ({ p }) => (
         <span key={t} className="px-2.5 py-1 text-[11px] font-semibold text-gray-500 bg-black/[0.03] rounded-full">{t}</span>
       ))}
     </div>
-    {p.link ? (
-      <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-accent transition-colors">
-        <GitHubIcon className="w-4 h-4" /> GitHub <Arrow className="w-4 h-4" />
-      </a>
-    ) : (
-      <span className="text-sm font-bold text-gray-400">Coming soon</span>
-    )}
+    <div className="flex items-center gap-4 flex-wrap">
+      {p.link ? (
+        <a href={p.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-sm font-bold text-brand-dark hover:text-brand-accent transition-colors">
+          <GitHubIcon className="w-4 h-4" /> GitHub <Arrow className="w-4 h-4" />
+        </a>
+      ) : (
+        <span className="text-sm font-bold text-gray-400">Coming soon</span>
+      )}
+      {p.live && (
+        <a href={p.live} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-dark hover:text-brand-accent transition-colors">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" /><path strokeLinecap="round" d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18" /></svg>
+          Live <Arrow className="w-4 h-4" />
+        </a>
+      )}
+      {p.reel && (
+        <a href={p.reel} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-dark hover:text-brand-accent transition-colors">
+          <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+          Reel <Arrow className="w-4 h-4" />
+        </a>
+      )}
+    </div>
   </div>
 );
 

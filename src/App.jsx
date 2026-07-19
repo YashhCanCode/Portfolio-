@@ -1,4 +1,6 @@
 import ScrollProgress from './components/ScrollProgress'
+import CommandPalette from './components/CommandPalette'
+import ConsoleGreeting from './components/ConsoleGreeting'
 import KonamiEasterEgg from './components/KonamiEasterEgg'
 import Preloader from './components/Preloader'
 import Navbar from './components/Navbar'
@@ -23,6 +25,8 @@ function App() {
   return (
     <>
       <ScrollProgress />
+      <CommandPalette />
+      <ConsoleGreeting />
       <div aria-hidden className="grain-overlay pointer-events-none fixed inset-0 z-[45] opacity-[0.045]" />
       <KonamiEasterEgg />
       <Preloader />

@@ -133,7 +133,7 @@ const Hero = () => {
           <div className="absolute top-[19%] right-0 sm:right-2 z-20 rotate-[-6deg]">
             <div className="relative bg-white rounded-xl px-3.5 py-2.5 shadow-[0_14px_35px_rgba(29,19,12,0.16)]">
               <span className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-2.5 h-2.5 rounded-full bg-brand-accent shadow-sm" />
-              <p className="font-script text-lg text-brand-dark leading-none whitespace-nowrap">Yuppp thats me</p>
+              <p className="font-script text-lg text-brand-dark leading-none whitespace-nowrap">Yuppp that's me</p>
             </div>
             <svg className="absolute -bottom-5 -left-8 w-10 h-10 text-brand-accent/80" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path strokeLinecap="round" strokeLinejoin="round" d="M23 4 C 15 8, 8 13, 4 23 M4 23 l 1 -6 M4 23 l 6 1" />
