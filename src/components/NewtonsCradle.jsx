@@ -87,10 +87,10 @@ const NewtonsCradle = () => {
       });
       Composite.add(engine.world, mc);
       render.mouse = mouse;
+      // keep page scrolling usable over the canvas
       ['wheel', 'DOMMouseScroll'].forEach((ev) => mouse.element.removeEventListener(ev, mouse.mousewheel));
-      mouse.element.removeEventListener('touchstart', mouse.mousedown);
-      mouse.element.removeEventListener('touchmove', mouse.mousemove);
-      mouse.element.removeEventListener('touchend', mouse.mouseup);
+      // touch drag stays enabled — CSS touch-action:pan-y lets vertical swipes scroll
+      // the page while horizontal drags pull a ball.
     };
 
     const onResize = () => {
@@ -112,7 +112,7 @@ const NewtonsCradle = () => {
         <div className="w-[300px] sm:w-[400px] md:absolute md:right-0 md:-top-6">
           <div
             ref={hostRef}
-            className="w-full h-[190px] sm:h-[210px] [&_canvas]:cursor-grab [&_canvas]:active:cursor-grabbing"
+            className="w-full h-[190px] sm:h-[210px] [&_canvas]:cursor-grab [&_canvas]:active:cursor-grabbing [&_canvas]:touch-pan-y"
           />
           <p className="font-script text-base md:text-lg text-brand-dark text-center leading-snug -mt-12">
             Been obsessed with physics since I was a kid &mdash; honestly way more fun
