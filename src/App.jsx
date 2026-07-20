@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import ScrollProgress from './components/ScrollProgress'
 import CommandPalette from './components/CommandPalette'
 import ConsoleGreeting from './components/ConsoleGreeting'
@@ -7,7 +8,7 @@ import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
 import Experience from './components/Experience'
-import NewtonsCradle from './components/NewtonsCradle'
+const NewtonsCradle = lazy(() => import('./components/NewtonsCradle'))
 import StickyNote from './components/StickyNote'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
@@ -43,7 +44,7 @@ function App() {
         </p>
       </StickyNote>
       <Experience />
-      <NewtonsCradle />
+      <Suspense fallback={null}><NewtonsCradle /></Suspense>
       <Projects />
       <StickyNote side="right" rotate="4deg">
         <p className="font-script text-xl text-brand-dark leading-tight mb-1.5 underline"> ☘︎ Small Achievement -</p>

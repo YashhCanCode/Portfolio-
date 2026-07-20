@@ -76,6 +76,7 @@ const About = () => {
                   key={pic.alt}
                   src={pic.src}
                   alt={pic.alt}
+                  loading="lazy"
                   initial={{ opacity: 0, y: 26 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.2 + idx * 0.15 }}

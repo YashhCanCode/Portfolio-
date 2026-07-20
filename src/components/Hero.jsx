@@ -1,8 +1,5 @@
 import { motion } from 'framer-motion';
 import sticker from '../assets/about/sticker.webp';
-import reactLogo from '../assets/about/react.webp';
-import nodeLogo from '../assets/about/node.webp';
-import mongoLogo from '../assets/about/mongodb.webp';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },

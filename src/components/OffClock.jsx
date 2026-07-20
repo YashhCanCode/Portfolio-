@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import run1 from '../assets/run/run1.jpg';
-import run2 from '../assets/run/run2.jpg';
-import run3 from '../assets/run/run3.jpg';
-import ChessPuzzle from './ChessPuzzle';
+import run1 from '../assets/run/run1.webp';
+import run2 from '../assets/run/run2.webp';
+import run3 from '../assets/run/run3.webp';
+const ChessPuzzle = lazy(() => import('./ChessPuzzle'));
 
 const runImages = [run1, run2, run3];
 
@@ -38,6 +38,7 @@ const RunGallery = () => {
               key={i}
               src={src}
               alt=""
+              loading="lazy"
               className={`absolute top-0 left-0 w-12 h-12 object-cover rounded-lg border-2 border-white shadow-md transition-transform duration-300 ${
                 i === 0 ? '-rotate-6' : i === 1 ? 'rotate-3 translate-x-2' : 'rotate-[10deg] translate-x-4'
               }`}
@@ -78,6 +79,7 @@ const RunGallery = () => {
                 key={idx}
                 src={runImages[idx]}
                 alt={`Run ${idx + 1}`}
+                loading="lazy"
                 onClick={(e) => e.stopPropagation()}
                 initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -133,7 +135,9 @@ const OffClock = () => {
             I&apos;m weirdly serious about:
           </p>
         </motion.div>
-          <ChessPuzzle />
+          <Suspense fallback={<div className="shrink-0 mx-auto md:mx-0 w-[252px] sm:w-[272px] h-[340px]" />}>
+            <ChessPuzzle />
+          </Suspense>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">

@@ -20,8 +20,6 @@ const LINKS = [
   { label: 'Email me', href: 'mailto:yashwanthkonnuru@gmail.com' },
 ];
 
-const isMac = typeof navigator !== 'undefined' && /Mac|iPhone|iPad/.test(navigator.platform);
-
 const SearchIcon = ({ className }) => (
   <svg className={className} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
     <circle cx="11" cy="11" r="7" /><path strokeLinecap="round" d="M21 21l-4.3-4.3" />
@@ -39,6 +37,12 @@ const CommandPalette = () => {
     ...LINKS.map((l) => ({ ...l, kind: 'link' })),
   ].filter((i) => i.label.toLowerCase().includes(q.toLowerCase()));
 
+  const openPalette = () => {
+    setQ('');
+    setActive(0);
+    setOpen(true);
+  };
+
   const run = (item) => {
     setOpen(false);
     if (!item) return;
@@ -53,7 +57,8 @@ const CommandPalette = () => {
     const onKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        setOpen((o) => !o);
+        if (open) setOpen(false);
+        else openPalette();
         return;
       }
       if (!open) return;
@@ -67,26 +72,28 @@ const CommandPalette = () => {
   }, [open, items, active]);
 
   useEffect(() => {
-    if (open) {
-      setQ('');
-      setActive(0);
-      document.body.style.overflow = 'hidden';
-      setTimeout(() => inputRef.current?.focus(), 20);
-    } else {
+    if (!open) {
       document.body.style.overflow = '';
+      return undefined;
     }
+    document.body.style.overflow = 'hidden';
+    const t = setTimeout(() => inputRef.current?.focus(), 20);
+    return () => {
+      clearTimeout(t);
+      document.body.style.overflow = '';
+    };
   }, [open]);
 
   return (
     <>
       {/* discover hint */}
       <button
-        onClick={() => setOpen(true)}
-        aria-label="Open command menu"
-        className="fixed bottom-5 right-5 z-40 hidden md:flex items-center gap-2 bg-brand-dark/90 text-white/90 backdrop-blur rounded-full px-3.5 py-2 text-xs font-semibold shadow-lg hover:bg-brand-dark transition-colors"
+        onClick={openPalette}
+        aria-label="Search"
+        title="Search"
+        className="fixed bottom-5 right-5 z-40 hidden md:flex items-center justify-center w-11 h-11 bg-brand-dark/90 text-white/90 backdrop-blur rounded-full shadow-lg hover:bg-brand-dark transition-colors"
       >
-        <SearchIcon className="w-3.5 h-3.5" />
-        <span className="font-mono">{isMac ? '⌘' : 'Ctrl'} K</span>
+        <SearchIcon className="w-4 h-4" />
       </button>
 
       {open && (
