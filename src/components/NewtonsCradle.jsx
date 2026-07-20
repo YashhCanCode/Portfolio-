@@ -107,7 +107,7 @@ const NewtonsCradle = () => {
   }, []);
 
   return (
-    <div className="relative z-20 md:h-0">
+    <div className="relative z-20 md:h-0 bg-gradient-to-b from-white to-brand-light md:bg-none">
       <div className="max-w-6xl mx-auto px-6 md:px-12 relative flex justify-center md:block py-8 md:py-0">
         <div className="w-[300px] sm:w-[400px] md:absolute md:right-0 md:-top-6">
           <div
