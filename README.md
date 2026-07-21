@@ -1,16 +1,13 @@
-# React + Vite
+# konnuruyashwanth.dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my portfolio. It's live here → **[konnuruyashwanth.dev](https://www.konnuruyashwanth.dev)**
 
-Currently, two official plugins are available:
+I set out to build a normal one. Clean, professional, five sections, done in a weekend. Somewhere along the way I put a Newton's cradle in it, then four chess puzzles, and at some point it stopped being a résumé and turned into a place I actually enjoyed working on.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+The one rule I kept: nothing goes on the page unless it's genuinely mine or it genuinely does something. The photos are mine. The projects are ones I built. The running numbers are off my Strava. The physics is real physics, not a looping GIF.
 
-## React Compiler
+If you're clicking around, a few things are worth finding — there's a cradle wedged between two sections that you can actually pull, some chess puzzles near the bottom (real forced mates, I checked every one), a scratch card hiding a line about me, and something for anyone who still remembers the Konami code.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I'm Yash. I build AI products, I run, I play chess badly enough to keep it interesting, and I'm open to work right now. If anything here made you curious, my inbox is open — **yashwanthkonnuru@gmail.com**
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The code's public because I don't mind anyone learning from it. The photos and the writing are mine though, so please leave those where they are.
