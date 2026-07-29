@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import run1 from '../assets/run/run1.webp';
 import run2 from '../assets/run/run2.webp';
 import run3 from '../assets/run/run3.webp';
+import run4 from '../assets/run/run4.webp';
 const ChessPuzzle = lazy(() => import('./ChessPuzzle'));
 
 const runImages = [run1, run2, run3];
@@ -106,6 +107,7 @@ const RunGallery = () => {
 };
 
 const OffClock = () => {
+  const [photoOpen, setPhotoOpen] = useState(false);
   return (
     <section
       id="life"
@@ -161,7 +163,7 @@ const OffClock = () => {
               {[
                 { n: '100', u: 'km', l: 'in 3 months' },
                 { n: '10', u: 'km', l: 'longest run' },
-                { n: '22', u: 'km', l: 'goal @ 22nd bday' },
+                { n: '22', u: 'km', l: 'done, on my 22nd 🎂' },
               ].map((s) => (
                 <div key={s.l} className="rounded-2xl bg-brand-light p-4 text-center">
                   <p className="font-display text-3xl font-light text-brand-dark leading-none">
@@ -175,8 +177,30 @@ const OffClock = () => {
               ))}
             </div>
 
+            {/* 22K milestone — photo + reel attached */}
+            <div className="mb-6">
+              <p className="text-[10px] uppercase tracking-wider text-brand-medium/60 font-semibold mb-2">The 22KM, conquered</p>
+              <div className="flex gap-2.5">
+                <button onClick={() => setPhotoOpen(true)} className="group relative shrink-0 w-20 h-20 rounded-xl overflow-hidden shadow-md ring-1 ring-black/5" aria-label="View birthday run photo">
+                  <img src={run4} alt="Birthday 22K run" loading="lazy" className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                  <span className="absolute bottom-1 right-1 w-5 h-5 rounded-full bg-white/85 flex items-center justify-center">
+                    <svg className="w-3 h-3 text-brand-dark" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M15 3h6m0 0v6m0-6L10 14M9 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-4" /></svg>
+                  </span>
+                </button>
+                <a href="https://www.instagram.com/reel/DbVxjKYp8E8/" target="_blank" rel="noopener noreferrer" className="flex-1 flex items-center gap-2.5 rounded-xl bg-brand-light hover:bg-brand-accent/10 transition-colors p-3">
+                  <span className="w-9 h-9 rounded-full bg-brand-dark text-white flex items-center justify-center shrink-0">
+                    <svg className="w-4 h-4 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                  </span>
+                  <span className="leading-tight text-left">
+                    <span className="block text-sm font-bold text-brand-dark">Watch the reel</span>
+                    <span className="block text-[11px] text-brand-medium/70">22K on my 22nd 🎂</span>
+                  </span>
+                </a>
+              </div>
+            </div>
+
             <p className="font-script text-xl text-brand-accent mb-6">
-              turning 22 with a 22K — that&apos;s the plan. 🎂
+              turned 22 with a 22K — done and dusted. 🎂
             </p>
             <a
               href="https://strava.app.link/edvB8Q85O4b"
@@ -190,6 +214,15 @@ const OffClock = () => {
               </svg>
             </a>
           </motion.div>
+
+          {photoOpen && (
+            <div onClick={() => setPhotoOpen(false)} className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm p-4">
+              <button onClick={() => setPhotoOpen(false)} aria-label="Close" className="absolute top-5 right-5 text-white/70 hover:text-white">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+              <img src={run4} alt="Birthday 22K run" onClick={(e) => e.stopPropagation()} className="max-h-[82vh] max-w-[88vw] object-contain rounded-xl shadow-2xl" />
+            </div>
+          )}
 
           {/* Chess card */}
           <motion.div
