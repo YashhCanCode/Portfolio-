@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useSpring } from 'framer-motion';
 
 const timeline = [
   {
@@ -9,6 +10,15 @@ const timeline = [
       'Building and scaling backend systems for AI-powered products — designing APIs, integrating LLM pipelines, and optimizing services for reliability and performance.',
     tags: ['Backend', 'AI Systems', 'APIs', 'LLMs'],
     accent: true,
+  },
+  {
+    role: 'AI Trainer',
+    org: 'CrowdGen by Appen',
+    period: '2026',
+    description:
+      'Trained and improved AI models through high-quality data annotation',
+    tags: ['AI Training', 'Data Annotation', 'Computer Vision', 'NLP'],
+    accent: false,
   },
 ];
 
@@ -31,6 +41,13 @@ const openSource = [
 ];
 
 const Experience = () => {
+  const trackRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ['start 65%', 'end 65%'],
+  });
+  const fill = useSpring(scrollYProgress, { stiffness: 90, damping: 22, restDelta: 0.001 });
+
   return (
     <section
       id="experience"
@@ -54,14 +71,16 @@ const Experience = () => {
         </motion.div>
 
         {/* Timeline */}
-        <div className="relative border-l-2 border-brand-accent/20 ml-2 md:ml-4 space-y-12 mb-20">
+        <div ref={trackRef} className="relative ml-2 md:ml-4 space-y-12 mb-20">
+          {/* faint track */}
+          <div className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-brand-accent/20" />
+          {/* scroll-linked fill */}
+          <motion.div style={{ scaleY: fill }} className="absolute left-0 top-1.5 bottom-1.5 w-[2px] bg-brand-accent origin-top" />
           {timeline.map((item) => (
             <motion.div
               key={item.org}
               className="relative pl-8 md:pl-12"
             >
-              {/* Node */}
-              <span className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-accent border-4 border-white shadow-[0_0_0_3px_rgba(194,159,116,0.25)]" />
 
               <div className="bg-brand-light/60 border border-black/5 rounded-3xl p-7 md:p-8 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-shadow duration-500">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-3">
