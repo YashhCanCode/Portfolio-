@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react'
+import { Analytics } from '@vercel/analytics/react'
 import ScrollProgress from './components/ScrollProgress'
 import CommandPalette from './components/CommandPalette'
 import ConsoleGreeting from './components/ConsoleGreeting'
@@ -25,6 +26,7 @@ import Footer from './components/Footer'
 function App() {
   return (
     <>
+      <Analytics />
       <ScrollProgress />
       <CommandPalette />
       <ConsoleGreeting />
