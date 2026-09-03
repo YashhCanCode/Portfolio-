@@ -13,6 +13,15 @@ const featured = [
     status: null,
   },
   {
+    title: 'LLM Usage Metering & Billing',
+    tag: 'Backend · Built at Fly Rank AI',
+    description:
+      'The billing brain behind any AI SaaS — it counts every API call and AI token a customer uses, cuts them off when they hit their plan\u2019s limit, and turns that usage into an exact bill (down to a fraction of a cent), with paid upgrades handled through Razorpay. Built to be idempotent \u2014 send the same request twice and it still counts, and charges, only once.',
+    tech: ['Node.js', 'Express', 'PostgreSQL', 'Docker', 'Razorpay'],
+    link: 'https://github.com/YashhCanCode/LLM-Usage-Metering-Billing-Service',
+    status: null,
+  },
+  {
     title: 'AI Agent',
     tag: 'Autonomous Agent',
     description:

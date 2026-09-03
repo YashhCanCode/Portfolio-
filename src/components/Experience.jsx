@@ -5,9 +5,14 @@ const timeline = [
   {
     role: 'Backend AI Engineer — Intern',
     org: 'Fly Rank AI',
-    period: 'Jul 2026 — Present',
+    period: 'Jul — Aug 2026 · 8 weeks',
     description:
-      'Building and scaling backend systems for AI-powered products — designing APIs, integrating LLM pipelines, and optimizing services for reliability and performance.',
+      'Built and scaled backend systems for AI-powered products — designing APIs, integrating LLM pipelines, and optimizing services for reliability and performance.',
+    project: {
+      name: 'LLM Usage Metering & Billing Service',
+      link: 'https://github.com/YashhCanCode/LLM-Usage-Metering-Billing-Service',
+      note: 'the billing engine for an AI product \u2014 it counts each customer\u2019s API calls and AI tokens, enforces plan limits, turns that usage into an exact bill, and handles paid upgrades via Razorpay.',
+    },
     tags: ['Backend', 'AI Systems', 'APIs', 'LLMs'],
     accent: true,
   },
@@ -94,9 +99,18 @@ const Experience = () => {
                 <p className="text-base font-bold text-brand-medium mb-4">
                   {item.org}
                 </p>
-                <p className="text-sm text-gray-500 leading-relaxed font-medium mb-5">
+                <p className="text-sm text-gray-500 leading-relaxed font-medium mb-4">
                   {item.description}
                 </p>
+                {item.project && (
+                  <p className="text-sm text-gray-500 leading-relaxed font-medium mb-5">
+                    <span className="text-brand-dark font-semibold">Built </span>
+                    <a href={item.project.link} target="_blank" rel="noopener noreferrer" className="font-bold text-brand-dark hover:text-brand-accent transition-colors underline underline-offset-2 decoration-brand-accent/40">
+                      {item.project.name} ↗
+                    </a>
+                    {' — '}{item.project.note}
+                  </p>
+                )}
                 <div className="flex flex-wrap gap-2">
                   {item.tags.map((t) => (
                     <span
