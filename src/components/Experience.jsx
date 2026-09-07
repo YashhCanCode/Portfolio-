@@ -14,6 +14,7 @@ const timeline = [
       note: 'the billing engine for an AI product \u2014 it counts each customer\u2019s API calls and AI tokens, enforces plan limits, turns that usage into an exact bill, and handles paid upgrades via Razorpay.',
     },
     tags: ['Backend', 'AI Systems', 'APIs', 'LLMs'],
+    certificate: 'https://drive.google.com/file/d/15PMjmG86yB98GJ0fuPxtKa5Tu0Sr6Vak/view?usp=sharing',
     accent: true,
   },
   {
@@ -110,6 +111,19 @@ const Experience = () => {
                     </a>
                     {' — '}{item.project.note}
                   </p>
+                )}
+                {item.certificate && (
+                  <a
+                    href={item.certificate}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mb-5 px-3.5 py-1.5 text-xs font-bold text-brand-dark bg-white border border-brand-accent/30 rounded-full hover:bg-brand-accent hover:text-white hover:border-brand-accent transition-all duration-300 shadow-sm"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    View internship certificate ↗
+                  </a>
                 )}
                 <div className="flex flex-wrap gap-2">
                   {item.tags.map((t) => (
